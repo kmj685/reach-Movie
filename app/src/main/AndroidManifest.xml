@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RuachMovie">
         <activity
+            android:name=".RecyclerView"
+            android:exported="false" />
+        <activity
+            android:name=".BackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ConstraintLayout"
+            android:exported="false" />
+        <activity
+            android:name=".LinearLayout"
+            android:exported="false" />
+        <activity
+            android:name=".RelativeLayout"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

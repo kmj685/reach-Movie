@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Ruach Movie</string>
+    <string name="guest_text"><u>Continue as a guest</u></string>
 </resources>
