@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     val TAG: String = "로그"
 
     private lateinit var textView: TextView
-        private lateinit var  login_button: Button
+    private lateinit var  login_button: Button
 
     // 액티비티가 생성되었을 떄
     override fun onCreate(savedInstanceState: Bundle?) {

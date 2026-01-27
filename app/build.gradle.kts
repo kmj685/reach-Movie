@@ -51,4 +51,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     // For control over item selection of both touch and mouse driven selection
     implementation("androidx.recyclerview:recyclerview-selection:1.2.0")
+    //카드뷰
+    implementation("androidx.cardview:cardview:1.0.0")
+    //글라이드 이미지
+    implementation("com.github.bumptech.glide:glide:5.0.5")
 }
