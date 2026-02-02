@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BtnText_Normal" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="BtnText_Bold" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
