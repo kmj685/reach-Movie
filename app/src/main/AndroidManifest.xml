@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".App"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,24 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RuachMovie">
         <activity
-            android:name=".RecyclerVieww"
-            android:exported="true" />
-        <activity
-            android:name=".BackActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginLayout"
-            android:exported="false" />
-        <activity
-            android:name=".ConstraintLayout"
-            android:exported="false" />
-        <activity
-            android:name=".LinearLayout"
-            android:exported="false" />
-        <activity
-            android:name=".RelativeLayout"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -41,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PhotoCollectionActivity"/>
     </application>
 
 </manifest>
