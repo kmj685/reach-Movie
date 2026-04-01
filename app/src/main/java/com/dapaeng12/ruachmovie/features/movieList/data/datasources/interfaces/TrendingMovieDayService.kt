@@ -1,6 +1,6 @@
 package com.dapaeng12.ruachmovie.features.movieList.data.datasources.interfaces
 
-import com.dapaeng12.ruachmovie.features.movieList.domian.entities.TmdbMovieListResponse
+import com.dapaeng12.ruachmovie.features.movieList.data.dtos.TmdbMovieListResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -13,6 +13,6 @@ interface TrendingMovieDayService {
     @GET("trending/movie/day")
     suspend fun fetchTrendingMovieDay(
         @Query("language") language: String = "ko-KR"
-    ) : TmdbMovieListResponse
+    ) : TmdbMovieListResponseDto
 
 }

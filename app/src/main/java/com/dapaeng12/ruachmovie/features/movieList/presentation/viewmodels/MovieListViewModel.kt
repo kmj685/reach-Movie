@@ -1,16 +1,18 @@
 package com.dapaeng12.ruachmovie.features.movieList.presentation.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dapaeng12.ruachmovie.features.movieList.data.datasources.RetrofitManager
-import com.dapaeng12.ruachmovie.features.movieList.domian.entities.TmdbMovie
+import com.dapaeng12.ruachmovie.features.movieList.data.dtos.TmdbMovieDto
+import com.dapaeng12.ruachmovie.features.movieList.data.mappers.toDomain
+import com.dapaeng12.ruachmovie.features.movieList.domian.entities.Movie
 import com.dapaeng12.ruachmovie.features.movieList.domian.repositories.MovieListRepository
 import com.dapaeng12.ruachmovie.features.movieList.domian.usecases.GetTrendingDayMoviesUseCase
 import com.dapaeng12.ruachmovie.features.movieList.domian.usecases.GetTrendingWeekMoviesUseCase
+import com.dapaeng12.ruachmovie.utils.MOVIE_LIST_TYPE
 import kotlinx.coroutines.launch
+import kotlin.collections.map
 
 class MovieListViewModel(
     private val repository: MovieListRepository
@@ -21,11 +23,14 @@ class MovieListViewModel(
 
     val TAG : String = "로그"
     var listType : String = ""
-    private val _movieList = MutableLiveData<List<TmdbMovie>>()   // 내부에서만 수정
-    val movieList: LiveData<List<TmdbMovie>> = _movieList
+    var movieListType : MOVIE_LIST_TYPE = MOVIE_LIST_TYPE.DAY
+    private val _movieList = MutableLiveData<List<Movie>>()   // 내부에서만 수정
+    val movieList: LiveData<List<Movie>> = _movieList
 
-    var dayMovieList: List<TmdbMovie> = listOf()
-    var weekMovieList: List<TmdbMovie> = listOf()
+//    var movieListFlow : MutableStateFlow<List<TmdbMovie>> = MutableStateFlow(listOf())
+
+    var dayMovieList: List<Movie> = listOf()
+    var weekMovieList: List<Movie> = listOf()
 
     private val getTrendingDayMoviesUseCase = GetTrendingDayMoviesUseCase(repository)
     private val getTrendingWeekMoviesUseCase = GetTrendingWeekMoviesUseCase(repository)
@@ -36,40 +41,48 @@ class MovieListViewModel(
     fun loadDay() {
         viewModelScope.launch {
             val response = getTrendingDayMoviesUseCase()
-            _movieList.value = response
+            _movieList.value = response.map { it -> it.toDomain() }
             listType = DAY
+            movieListType = MOVIE_LIST_TYPE.DAY
         }
     }
 
     fun loadWeek() {
         viewModelScope.launch {
             val response = getTrendingWeekMoviesUseCase()
-            _movieList.value = response
+            _movieList.value = response.map { it -> it.toDomain() }
             listType = WEEK
+            movieListType = MOVIE_LIST_TYPE.WEEK
         }
     }
 
     fun loadMovieList() {
         viewModelScope.launch {
             val dayResponse = getTrendingDayMoviesUseCase()
-            dayMovieList = dayResponse
+            dayMovieList = dayResponse.map { it -> it.toDomain() }
 
             val weekResponse = getTrendingWeekMoviesUseCase()
-            weekMovieList = weekResponse
+            weekMovieList = weekResponse.map { it -> it.toDomain() }
 
             _movieList.value = dayMovieList
+//            movieListFlow.value = dayMovieList
             listType = DAY
+            movieListType = MOVIE_LIST_TYPE.DAY
         }
     }
 
     fun selectDay() {
         _movieList.value = dayMovieList
+//        movieListFlow.value = dayMovieList
         listType = DAY
+        movieListType = MOVIE_LIST_TYPE.DAY
     }
 
     fun selectWeek() {
         _movieList.value = weekMovieList
+//        movieListFlow.value = weekMovieList
         listType = WEEK
+        movieListType = MOVIE_LIST_TYPE.WEEK
     }
 }
 

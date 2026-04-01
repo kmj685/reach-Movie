@@ -1,13 +1,13 @@
-package com.dapaeng12.ruachmovie.features.movieList.domian.entities
+package com.dapaeng12.ruachmovie.features.movieList.data.dtos
 
 import com.google.gson.annotations.SerializedName
 
-data class TmdbMovieListResponse(
+data class TmdbMovieListResponseDto(
     @SerializedName("page")
     val page: Int,
 
     @SerializedName("results")
-    val results: List<TmdbMovie>,
+    val results: List<TmdbMovieDto>,
 
     @SerializedName("total_pages")
     val totalPages: Int,
@@ -16,7 +16,7 @@ data class TmdbMovieListResponse(
     val totalResults: Int
 )
 
-data class TmdbMovie(
+data class TmdbMovieDto(
     @SerializedName("adult")
     val adult: Boolean,
 

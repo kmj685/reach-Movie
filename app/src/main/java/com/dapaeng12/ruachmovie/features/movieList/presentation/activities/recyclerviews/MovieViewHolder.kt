@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dapaeng12.ruachmovie.App
 import com.dapaeng12.ruachmovie.R
-import com.dapaeng12.ruachmovie.features.movieList.domian.entities.TmdbMovie
+import com.dapaeng12.ruachmovie.features.movieList.data.dtos.TmdbMovieDto
+import com.dapaeng12.ruachmovie.features.movieList.domian.entities.Movie
+import com.dapaeng12.ruachmovie.utils.makeImageUrl
+import com.dapaeng12.ruachmovie.utils.tmdbMoviePostBaseUrl
 
 class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
@@ -23,16 +26,18 @@ class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         Log.d(TAG, "MovieViewHolder - init() called")
     }
 
-    fun bind(movie: TmdbMovie, index:Int) {
+    fun bind(movie: Movie, index:Int) {
         Log.d(TAG, "MovieViewHolder - bind() called")
         movieTitleTextView.text = movie.title
         releaseDateTextView.text = movie.releaseDate
         indexTextView.text = "${index + 1}"
 
-        val posterUrl = "https://image.tmdb.org/t/p/w500${movie.posterPath}"
+
+        // 객체지향 적 사고력 키우기
+//        val posterUrl = "https://image.tmdb.org/t/p/w500${movie.posterPath}"
         Glide
             .with(App.instance)
-            .load(posterUrl)
+            .load(movie.posterUrl)
 //            .centerCrop()
             .placeholder(R.mipmap.ic_launcher)
             .into(moviePostImageView)

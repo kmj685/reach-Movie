@@ -1,9 +1,7 @@
 package com.dapaeng12.ruachmovie.features.movieList.presentation.activities
 
 import android.content.res.ColorStateList
-import android.graphics.Typeface
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -16,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dapaeng12.ruachmovie.R
 import com.dapaeng12.ruachmovie.features.movieList.data.repositories.MovieListRepositoryImpl
-import com.dapaeng12.ruachmovie.features.movieList.domian.usecases.GetTrendingDayMoviesUseCase
 import com.dapaeng12.ruachmovie.features.movieList.presentation.activities.recyclerviews.MovieRecycleAdapter
 import com.dapaeng12.ruachmovie.features.movieList.presentation.viewmodels.MovieListViewModel
 import com.dapaeng12.ruachmovie.features.movieList.presentation.viewmodels.MovieListViewModelFactory
+import com.dapaeng12.ruachmovie.utils.MOVIE_LIST_TYPE
 import kotlin.getValue
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel : MovieListViewModel by viewModels{
         MovieListViewModelFactory(MovieListRepositoryImpl())
     }
+
 
     private lateinit var movieListRecyclerView: RecyclerView
     private lateinit var dayButton : Button
@@ -39,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         this.movieAdapter = MovieRecycleAdapter()
         setContentView(R.layout.activity_main)
+//        val movieList by viewModel.movieListFlow.collectAsState()
 
         movieListRecyclerView = findViewById(R.id.movie_list_recycler_view)
         dayButton = findViewById(R.id.day_button)
@@ -46,13 +46,16 @@ class MainActivity : AppCompatActivity() {
 
         dayButton.setOnClickListener { clickDayBtn() }
         weekButton.setOnClickListener { clickWeekBtn() }
+//        movieAdapter.submitList(movieList)
         viewModel.movieList.observe(this) { list ->
             movieAdapter.submitList(list)
         }
 
+
         movieListRecyclerView.apply {
             //
-            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL,
+                false)
             adapter = movieAdapter
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -62,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun clickDayBtn() {
-        if (viewModel.listType == "day") {
+        if (viewModel.movieListType == MOVIE_LIST_TYPE.DAY) {
             return
         } else {
             viewModel.selectDay()
@@ -72,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clickWeekBtn() {
-        if (viewModel.listType == "week") {
+        if (viewModel.movieListType == MOVIE_LIST_TYPE.WEEK) {
             return
         } else {
             viewModel.selectWeek()

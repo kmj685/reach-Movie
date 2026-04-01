@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RuachMovie">
         <activity
+            android:name=".features.movieList.presentation.activities.SampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".features.movieList.presentation.activities.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.movieList.presentation.activities.MainActivity"
             android:exported="true">
             <intent-filter>
